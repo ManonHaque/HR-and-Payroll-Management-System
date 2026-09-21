@@ -8,6 +8,7 @@ const salaryRoutes = require('./modules/salary/salary.routes');
 const reportingRoutes = require('./modules/reporting/reporting.routes');
 const dashboardRoutes = require('./modules/dashboard/dashboard.routes');
 const settingsRoutes = require('./modules/settings/settings.routes');
+const securityRoutes = require('./modules/security/security.routes');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/api/salary', salaryRoutes);
 app.use('/api/reporting', reportingRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/security', securityRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
