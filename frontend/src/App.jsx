@@ -7,6 +7,7 @@ import LoanPage from './features/loan/pages/loanPage';
 import BonusPage from './features/bonus/pages/bonusPage';
 import AllowancePage from './features/allowance/pages/allowancePage';
 import DashboardPage from './features/dashboard/pages/dashboardPage';
+import SettingsPage from './features/settings/pages/settingsPage';
 
 const Placeholder = ({ title }) => (
   <div className="h-full flex flex-col">
@@ -47,7 +48,7 @@ function App() {
           
           <Route path="reporting" element={<ReportingPage />} />
           <Route path="security" element={<Placeholder title="Security" />} />
-          <Route path="settings" element={<Placeholder title="Setting" />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>
     </Router>

@@ -17,6 +17,8 @@ CREATE TABLE IF NOT EXISTS CompanySetting (
     address TEXT,
     registration_number VARCHAR(100),
     payroll_cycle_date INT DEFAULT 1, -- Day of the month
+    working_hours VARCHAR(100) DEFAULT '9:00 AM - 6:00 PM',
+    working_days VARCHAR(100) DEFAULT 'Sun - Thu',
     emp_id_prefix VARCHAR(10) DEFAULT 'EMP-',
     next_emp_id INT DEFAULT 1001,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
