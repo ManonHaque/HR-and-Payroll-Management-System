@@ -4,6 +4,8 @@ const cors = require('cors');
 const loanRoutes = require('./modules/loan/loan.routes');
 const bonusRoutes = require('./modules/bonus/bonus.routes');
 const allowanceRoutes = require('./modules/allowance/allowance.routes');
+const salaryRoutes = require('./modules/salary/salary.routes');
+const reportingRoutes = require('./modules/reporting/reporting.routes');
 
 const app = express();
 
@@ -16,10 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'success', message: 'HR & Payroll API is running!' });
 });
-
-// Import and mount module routes
-const salaryRoutes = require('./modules/salary/salary.routes');
-const reportingRoutes = require('./modules/reporting/reporting.routes');
 
 app.use('/api/loans', loanRoutes);
 app.use('/api/bonuses', bonusRoutes);

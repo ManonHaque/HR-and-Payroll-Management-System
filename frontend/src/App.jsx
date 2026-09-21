@@ -30,23 +30,23 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Placeholder title="Dashboard" screenNum="1" />} />
-          <Route path="employee" element={<Placeholder title="Employee" screenNum="3" />} />
-          <Route path="employee-config" element={<Placeholder title="Employee Configuration" screenNum="4" />} />
-          <Route path="attendance" element={<Placeholder title="Attendance" screenNum="5" />} />
-          <Route path="overtime" element={<Placeholder title="Overtime Configuration" screenNum="6" />} />
-          <Route path="leave" element={<Placeholder title="Leave Management" screenNum="7" />} />
+          <Route index element={<Placeholder title="Dashboard" />} />
+          <Route path="employee" element={<Placeholder title="Employee" />} />
+          <Route path="employee-config" element={<Placeholder title="Employee Configuration" />} />
+          <Route path="attendance" element={<Placeholder title="Attendance" />} />
+          <Route path="overtime" element={<Placeholder title="Overtime Configuration" />} />
+          <Route path="leave" element={<Placeholder title="Leave Management" />} />
           
           <Route path="salary" element={<SalaryPage />} />
-          <Route path="increment" element={<Placeholder title="Increment" screenNum="9" />} />
+          <Route path="increment" element={<Placeholder title="Increment" />} />
           <Route path="bonus" element={<BonusPage />} />
           <Route path="allowance" element={<AllowancePage />} />
-          <Route path="deduction" element={<Placeholder title="Deduction" screenNum="12" />} />
+          <Route path="deduction" element={<Placeholder title="Deduction" />} />
           <Route path="loan-advance" element={<LoanPage />} />
           
           <Route path="reporting" element={<ReportingPage />} />
-          <Route path="security" element={<Placeholder title="Security" screenNum="2" />} />
-          <Route path="settings" element={<Placeholder title="Setting" screenNum="15" />} />
+          <Route path="security" element={<Placeholder title="Security" />} />
+          <Route path="settings" element={<Placeholder title="Setting" />} />
         </Route>
       </Routes>
     </Router>
