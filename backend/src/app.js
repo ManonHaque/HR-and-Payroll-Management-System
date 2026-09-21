@@ -1,6 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 
+const loanRoutes = require('./modules/loan/loan.routes');
+const bonusRoutes = require('./modules/bonus/bonus.routes');
+const allowanceRoutes = require('./modules/allowance/allowance.routes');
+
 const app = express();
 
 // Middleware
@@ -13,9 +17,9 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'success', message: 'HR & Payroll API is running!' });
 });
 
-// TODO: Import and mount module routes here
-// const employeeRoutes = require('./modules/employee/employee.routes');
-// app.use('/api/employees', employeeRoutes);
+app.use('/api/loans', loanRoutes);
+app.use('/api/bonuses', bonusRoutes);
+app.use('/api/allowances', allowanceRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
