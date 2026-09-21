@@ -1,6 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 
+const loanRoutes = require('./modules/loan/loan.routes');
+const bonusRoutes = require('./modules/bonus/bonus.routes');
+const allowanceRoutes = require('./modules/allowance/allowance.routes');
+
 const app = express();
 
 // Middleware
@@ -17,6 +21,9 @@ app.get('/api/health', (req, res) => {
 const salaryRoutes = require('./modules/salary/salary.routes');
 const reportingRoutes = require('./modules/reporting/reporting.routes');
 
+app.use('/api/loans', loanRoutes);
+app.use('/api/bonuses', bonusRoutes);
+app.use('/api/allowances', allowanceRoutes);
 app.use('/api/salary', salaryRoutes);
 app.use('/api/reporting', reportingRoutes);
 

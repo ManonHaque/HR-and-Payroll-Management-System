@@ -1,12 +1,166 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-bg: #abcbc3;
-  --color-brand-sidebar: #e6f0ed;
-  --color-brand-active: #fae8e0;
+  --color-brand-bg: #eee9fb;
+  --color-brand-sidebar: #f8f5ff;
+  --color-brand-active: #e8defd;
 }
 
 body {
-  background-color: var(--color-brand-bg);
+  background:
+    radial-gradient(circle at 15% 10%, rgba(216, 198, 255, 0.7), transparent 26%),
+    radial-gradient(circle at 90% 80%, rgba(205, 238, 232, 0.6), transparent 24%),
+    #eee9fb;
   color: var(--color-gray-900);
+}
+
+button,
+input,
+select {
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background-color 180ms ease;
+}
+
+.module-shell {
+  --module-accent: #6d43a5;
+  --module-soft: #f0e8ff;
+  --module-border: #dfd2f5;
+  position: relative;
+  isolation: isolate;
+}
+
+.module-shell[data-module='loan'] {
+  --module-accent: #6541a5;
+  --module-soft: #eee7ff;
+  --module-border: #d9ccf6;
+}
+
+.module-shell[data-module='bonus'] {
+  --module-accent: #9a4f75;
+  --module-soft: #fbe8f0;
+  --module-border: #f0cfe0;
+}
+
+.module-shell[data-module='allowance'] {
+  --module-accent: #397c72;
+  --module-soft: #e3f5f0;
+  --module-border: #c4e8df;
+}
+
+.module-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 148px;
+  border: 1px solid var(--module-border);
+  border-radius: 24px;
+  padding: 25px 28px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.96), var(--module-soft));
+  box-shadow: 0 18px 40px rgba(85, 60, 125, 0.09);
+  animation: module-rise 520ms ease both;
+}
+
+.module-hero::after {
+  position: absolute;
+  right: 18%;
+  bottom: -54px;
+  width: 180px;
+  height: 110px;
+  border: 1px solid rgba(109, 67, 165, 0.12);
+  border-radius: 50%;
+  content: '';
+  transform: rotate(-12deg);
+}
+
+.module-art {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 86px;
+  height: 86px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 28px 28px 12px 28px;
+  color: var(--module-accent);
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: 0 14px 26px rgba(85, 60, 125, 0.12);
+  animation: module-float 4s ease-in-out infinite;
+}
+
+.module-card {
+  border: 1px solid rgba(223, 210, 245, 0.92);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 14px 34px rgba(85, 60, 125, 0.07);
+  animation: module-rise 620ms ease both;
+}
+
+.module-shell > .module-card,
+.module-shell > .module-layout {
+  animation-delay: 100ms;
+}
+
+.module-shell input,
+.module-shell select {
+  border-color: var(--module-border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.module-shell input:focus,
+.module-shell select:focus {
+  border-color: var(--module-accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--module-accent) 14%, transparent);
+}
+
+.module-shell button[type='submit'] {
+  border-radius: 12px;
+  background: var(--module-accent);
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--module-accent) 20%, transparent);
+}
+
+.module-shell button[type='submit']:hover {
+  background: color-mix(in srgb, var(--module-accent) 86%, #24163a);
+  transform: translateY(-1px);
+}
+
+.module-shell button[type='button'] {
+  border-color: var(--module-border);
+  color: var(--module-accent);
+}
+
+.module-shell button[type='button']:hover {
+  border-color: var(--module-accent);
+  background: var(--module-soft);
+  transform: translateY(-1px);
+}
+
+.module-shell table thead {
+  background: var(--module-soft);
+}
+
+.module-shell table tbody tr {
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.module-shell table tbody tr:hover {
+  background: color-mix(in srgb, var(--module-soft) 55%, white);
+}
+
+@keyframes module-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes module-float {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-7px) rotate(3deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
