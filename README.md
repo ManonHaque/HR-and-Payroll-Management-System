@@ -40,8 +40,10 @@ npm install
 2. **Run the Schema**: Import the `database/schema.sql` file into your MySQL instance. This script automatically creates the `hr_payroll_db` database and all 37+ tables.
 3. **Configure Environment Variables**: 
    - Navigate to the `backend/` folder.
-   - Copy `.env.example` and rename it to `.env`.
-   - Update the `.env` file with your actual MySQL credentials.
+   - Run the following command to create your local environment file:
+     - **Mac/Linux/GitBash**: `cp .env.example .env`
+     - **Windows CMD**: `copy .env.example .env`
+   - Open the new `.env` file and update it with your actual MySQL credentials.
 
 ---
 
