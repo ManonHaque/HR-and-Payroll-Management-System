@@ -13,9 +13,12 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'success', message: 'HR & Payroll API is running!' });
 });
 
-// TODO: Import and mount module routes here
-// const employeeRoutes = require('./modules/employee/employee.routes');
-// app.use('/api/employees', employeeRoutes);
+// Import and mount module routes
+const salaryRoutes = require('./modules/salary/salary.routes');
+const reportingRoutes = require('./modules/reporting/reporting.routes');
+
+app.use('/api/salary', salaryRoutes);
+app.use('/api/reporting', reportingRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

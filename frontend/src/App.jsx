@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import SalaryPage from './features/salary/pages/salaryPage';
+import ReportingPage from './features/reporting/pages/reportingPage';
 
 const Placeholder = ({ title }) => (
   <div className="h-full flex flex-col">
@@ -32,14 +34,14 @@ function App() {
           <Route path="overtime" element={<Placeholder title="Overtime Configuration" screenNum="6" />} />
           <Route path="leave" element={<Placeholder title="Leave Management" screenNum="7" />} />
           
-          <Route path="salary" element={<Placeholder title="Salary Generation" screenNum="8" />} />
+          <Route path="salary" element={<SalaryPage />} />
           <Route path="increment" element={<Placeholder title="Increment" screenNum="9" />} />
           <Route path="bonus" element={<Placeholder title="Bonus" screenNum="10" />} />
           <Route path="allowance" element={<Placeholder title="Allowance" screenNum="11" />} />
           <Route path="deduction" element={<Placeholder title="Deduction" screenNum="12" />} />
           <Route path="loan-advance" element={<Placeholder title="Loan & Advance" screenNum="13" />} />
           
-          <Route path="reporting" element={<Placeholder title="Reporting" screenNum="14" />} />
+          <Route path="reporting" element={<ReportingPage />} />
           <Route path="security" element={<Placeholder title="Security" screenNum="2" />} />
           <Route path="settings" element={<Placeholder title="Setting" screenNum="15" />} />
         </Route>
