@@ -17,6 +17,8 @@ CREATE TABLE IF NOT EXISTS CompanySetting (
     address TEXT,
     registration_number VARCHAR(100),
     payroll_cycle_date INT DEFAULT 1, -- Day of the month
+    emp_id_prefix VARCHAR(10) DEFAULT 'EMP-',
+    next_emp_id INT DEFAULT 1001,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -161,14 +163,22 @@ CREATE TABLE IF NOT EXISTS EmergencyContact (
     FOREIGN KEY (employee_id) REFERENCES Employee(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS DocumentTypeConfig (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    is_mandatory BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS EmployeeDocument (
     id INT AUTO_INCREMENT PRIMARY KEY,
     employee_id INT NOT NULL,
-    document_type VARCHAR(100) NOT NULL,
+    document_type_id INT NOT NULL,
     file_path VARCHAR(255) NOT NULL,
     is_verified BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (employee_id) REFERENCES Employee(id) ON DELETE CASCADE
+    FOREIGN KEY (employee_id) REFERENCES Employee(id) ON DELETE CASCADE,
+    FOREIGN KEY (document_type_id) REFERENCES DocumentTypeConfig(id) ON DELETE RESTRICT
 );
 
 -- ==========================================
