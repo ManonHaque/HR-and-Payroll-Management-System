@@ -2,18 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 
-const Placeholder = ({ title, screenNum }) => (
+const Placeholder = ({ title }) => (
   <div className="h-full flex flex-col">
     <div className="flex justify-between items-start mb-6">
       <div>
         <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
         <p className="text-sm text-gray-600 mt-1">Wednesday, September 10, 2026</p>
       </div>
-      {screenNum && (
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-brand-active text-orange-700 uppercase tracking-wider">
-          Screen {screenNum} / 15 - {title}
-        </span>
-      )}
     </div>
     
     <div className="bg-white/40 border border-white/60 rounded-2xl flex-1 flex flex-col items-center justify-center text-center p-8 shadow-sm backdrop-blur-sm">
