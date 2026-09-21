@@ -12,6 +12,8 @@ erDiagram
         string name
         string address
         int payroll_cycle_date
+        string emp_id_prefix
+        int next_emp_id
     }
     Branch ||--o{ Employee : "has"
     Branch {
@@ -70,6 +72,7 @@ erDiagram
     Employee ||--o{ EmergencyContact : "has"
     Employee ||--o{ EmployeeDocument : "has"
     Employee ||--o{ Employee : "manages"
+    DocumentTypeConfig ||--o{ EmployeeDocument : "defines"
     
     Employee {
         int id PK
@@ -89,10 +92,15 @@ erDiagram
         string name
         string phone
     }
+    DocumentTypeConfig {
+        int id PK
+        string name
+        boolean is_mandatory
+    }
     EmployeeDocument {
         int id PK
         int employee_id FK
-        string document_type
+        int document_type_id FK
         string file_path
     }
 ```
