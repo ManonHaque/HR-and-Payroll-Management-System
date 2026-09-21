@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import LoanPage from './features/loan/pages/loanPage';
+import BonusPage from './features/bonus/pages/bonusPage';
+import AllowancePage from './features/allowance/pages/allowancePage';
 
 const Placeholder = ({ title }) => (
   <div className="h-full flex flex-col">
@@ -34,10 +37,10 @@ function App() {
           
           <Route path="salary" element={<Placeholder title="Salary Generation" screenNum="8" />} />
           <Route path="increment" element={<Placeholder title="Increment" screenNum="9" />} />
-          <Route path="bonus" element={<Placeholder title="Bonus" screenNum="10" />} />
-          <Route path="allowance" element={<Placeholder title="Allowance" screenNum="11" />} />
+          <Route path="bonus" element={<BonusPage />} />
+          <Route path="allowance" element={<AllowancePage />} />
           <Route path="deduction" element={<Placeholder title="Deduction" screenNum="12" />} />
-          <Route path="loan-advance" element={<Placeholder title="Loan & Advance" screenNum="13" />} />
+          <Route path="loan-advance" element={<LoanPage />} />
           
           <Route path="reporting" element={<Placeholder title="Reporting" screenNum="14" />} />
           <Route path="security" element={<Placeholder title="Security" screenNum="2" />} />
