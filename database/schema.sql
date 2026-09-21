@@ -1,6 +1,9 @@
 -- HR & Payroll Management System - MySQL Schema
 -- Generated based on PRD version 1.3
 
+CREATE DATABASE IF NOT EXISTS hr_payroll_db;
+USE hr_payroll_db;
+
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ==========================================

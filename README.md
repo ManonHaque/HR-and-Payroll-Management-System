@@ -37,12 +37,8 @@ npm install
 ## 🗄️ Database Setup & Connection
 
 1. **Install MySQL**: Ensure you have a local MySQL server running (e.g., XAMPP, WAMP, MySQL Workbench, or Docker).
-2. **Create the Database**: Connect to your MySQL instance and run:
-   ```sql
-   CREATE DATABASE hr_payroll_db;
-   ```
-3. **Run the Schema**: Import the `database/schema.sql` file into your newly created database to instantly generate all the necessary tables and relationships.
-4. **Configure Environment Variables**: 
+2. **Run the Schema**: Import the `database/schema.sql` file into your MySQL instance. This script automatically creates the `hr_payroll_db` database and all 37+ tables.
+3. **Configure Environment Variables**: 
    - Navigate to the `backend/` folder.
    - Copy `.env.example` and rename it to `.env`.
    - Update the `.env` file with your actual MySQL credentials.
