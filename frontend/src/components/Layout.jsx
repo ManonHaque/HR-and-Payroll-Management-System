@@ -15,6 +15,7 @@ import {
   Gift,
   BadgePercent,
   MinusCircle,
+  Layers,
   Wallet,
   BarChart3,
   ShieldCheck,
@@ -42,6 +43,7 @@ const navigationGroups = [
     title: 'PAY',
     items: [
       { name: 'Salary Generation', href: '/salary', icon: FileText },
+      { name: 'Salary Structure', href: '/salary-structure', icon: Layers },
       { name: 'Increment', href: '/increment', icon: TrendingUp },
       { name: 'Bonus', href: '/bonus', icon: Gift },
       { name: 'Allowance', href: '/allowance', icon: BadgePercent },
