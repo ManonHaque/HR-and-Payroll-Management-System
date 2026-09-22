@@ -17,6 +17,8 @@ CREATE TABLE IF NOT EXISTS CompanySetting (
     address TEXT,
     registration_number VARCHAR(100),
     payroll_cycle_date INT DEFAULT 1, -- Day of the month
+    working_hours VARCHAR(100) DEFAULT '9:00 AM - 6:00 PM',
+    working_days VARCHAR(100) DEFAULT 'Sun - Thu',
     emp_id_prefix VARCHAR(10) DEFAULT 'EMP-',
     next_emp_id INT DEFAULT 1001,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -456,12 +458,14 @@ CREATE TABLE IF NOT EXISTS Payslip (
     employee_id INT NOT NULL,
     basic_salary DECIMAL(10, 2) NOT NULL,
     total_allowances DECIMAL(10, 2) NOT NULL DEFAULT 0,
-    total_deductions DECIMAL(10, 2) NOT NULL DEFAULT 0,
     bonus_amount DECIMAL(10, 2) NOT NULL DEFAULT 0,
     overtime_amount DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    gross_salary DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    total_deductions DECIMAL(10, 2) NOT NULL DEFAULT 0,
     tax_deducted DECIMAL(10, 2) NOT NULL DEFAULT 0,
     loan_emi DECIMAL(10, 2) NOT NULL DEFAULT 0,
     net_salary DECIMAL(10, 2) NOT NULL,
+    pdf_path VARCHAR(255) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (payroll_run_id) REFERENCES PayrollRun(id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES Employee(id) ON DELETE CASCADE
@@ -476,6 +480,22 @@ CREATE TABLE IF NOT EXISTS LoanRepayment (
     status ENUM('Paid', 'Pending') DEFAULT 'Paid',
     FOREIGN KEY (loan_request_id) REFERENCES LoanRequest(id) ON DELETE CASCADE,
     FOREIGN KEY (payroll_run_id) REFERENCES PayrollRun(id) ON DELETE CASCADE
+);
+
+-- ==========================================
+-- 9. Reporting Management
+-- ==========================================
+
+CREATE TABLE IF NOT EXISTS ReportExport (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    payroll_run_id INT NULL,
+    report_type VARCHAR(150) NOT NULL,
+    format ENUM('PDF', 'Excel') NOT NULL,
+    generated_by_user_id INT NULL,
+    exported_by_name VARCHAR(150) DEFAULT 'Rahul Saha',
+    exported_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (payroll_run_id) REFERENCES PayrollRun(id) ON DELETE SET NULL,
+    FOREIGN KEY (generated_by_user_id) REFERENCES User(id) ON DELETE SET NULL
 );
 
 SET FOREIGN_KEY_CHECKS = 1;
