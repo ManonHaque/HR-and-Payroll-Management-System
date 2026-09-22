@@ -1,6 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import EmployeePage from './features/employee/pages/employeePage';
+import EmployeeProfilePage from './features/employee/pages/employeeProfilePage';
+import EmployeeConfigPage from './features/employee-config/pages/employee-configPage';
 
 const Placeholder = ({ title }) => (
   <div className="h-full flex flex-col">
@@ -26,8 +29,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Placeholder title="Dashboard" screenNum="1" />} />
-          <Route path="employee" element={<Placeholder title="Employee" screenNum="3" />} />
-          <Route path="employee-config" element={<Placeholder title="Employee Configuration" screenNum="4" />} />
+          <Route path="employee" element={<EmployeePage />} />
+          <Route path="employee/:id" element={<EmployeeProfilePage />} />
+          <Route path="employee-config" element={<EmployeeConfigPage />} />
           <Route path="attendance" element={<Placeholder title="Attendance" screenNum="5" />} />
           <Route path="overtime" element={<Placeholder title="Overtime Configuration" screenNum="6" />} />
           <Route path="leave" element={<Placeholder title="Leave Management" screenNum="7" />} />

@@ -143,6 +143,8 @@ CREATE TABLE IF NOT EXISTS Employee (
     bank_account_no VARCHAR(100),
     bank_name VARCHAR(100),
     basic_salary DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    separation_reason VARCHAR(255) NULL,
+    clearance_completed BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE SET NULL,
@@ -297,9 +299,11 @@ CREATE TABLE IF NOT EXISTS LeaveRequest (
 
 CREATE TABLE IF NOT EXISTS SalaryStructureTemplate (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    grade_id INT NOT NULL,
+    grade_id INT NOT NULL UNIQUE,
     basic_percentage DECIMAL(5, 2) NOT NULL,
     hra_percentage DECIMAL(5, 2) NOT NULL,
+    medical_percentage DECIMAL(5, 2) NOT NULL DEFAULT 0,
+    transport_percentage DECIMAL(5, 2) NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (grade_id) REFERENCES Grade(id) ON DELETE CASCADE
 );
@@ -475,4 +479,46 @@ CREATE TABLE IF NOT EXISTS LoanRepayment (
 );
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ==========================================
+-- Seed data (safe to re-run: uses INSERT IGNORE / EXISTS guards)
+-- ==========================================
+
+INSERT IGNORE INTO CompanySetting (id, name, address, emp_id_prefix, next_emp_id)
+  SELECT 1, 'Ultimate IT', 'Dhaka, Bangladesh', 'UIT-', 1001
+  WHERE NOT EXISTS (SELECT 1 FROM CompanySetting);
+
+INSERT IGNORE INTO Branch (id, name, location)
+  SELECT 1, 'Head Office', 'Dhaka'
+  WHERE NOT EXISTS (SELECT 1 FROM Branch);
+
+INSERT IGNORE INTO Department (name) VALUES
+  ('Human Resources'), ('Engineering'), ('Finance'), ('Sales');
+
+INSERT IGNORE INTO Designation (department_id, name)
+  SELECT d.id, x.name FROM Department d
+  JOIN (
+    SELECT 'Human Resources' AS dept, 'HR Manager' AS name UNION ALL
+    SELECT 'Human Resources', 'HR Executive' UNION ALL
+    SELECT 'Engineering', 'Software Engineer' UNION ALL
+    SELECT 'Engineering', 'Senior Software Engineer' UNION ALL
+    SELECT 'Engineering', 'Engineering Manager' UNION ALL
+    SELECT 'Finance', 'Accountant' UNION ALL
+    SELECT 'Finance', 'Finance Manager' UNION ALL
+    SELECT 'Sales', 'Sales Executive' UNION ALL
+    SELECT 'Sales', 'Sales Manager'
+  ) x ON x.dept = d.name
+  WHERE NOT EXISTS (SELECT 1 FROM Designation);
+
+INSERT IGNORE INTO DocumentTypeConfig (name, is_mandatory) VALUES
+  ('National ID', 1), ('Educational Certificate', 1), ('Bank Statement / Passbook', 1),
+  ('Reference Letter', 0), ('Medical Fitness Certificate', 0);
+
+INSERT IGNORE INTO Grade (name, min_salary, max_salary) VALUES
+  ('G1 - Entry', 18000, 22000), ('G2 - Associate', 27000, 34000),
+  ('G3 - Senior', 42000, 55000), ('G4 - Manager', 70000, 92000);
+
+INSERT IGNORE INTO SalaryStructureTemplate (grade_id, basic_percentage, hra_percentage, medical_percentage, transport_percentage)
+  SELECT id, 60, 25, 10, 5 FROM Grade
+  WHERE NOT EXISTS (SELECT 1 FROM SalaryStructureTemplate);
 
