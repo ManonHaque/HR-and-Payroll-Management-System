@@ -12,6 +12,9 @@ const reportingRoutes = require('./modules/reporting/reporting.routes');
 const dashboardRoutes = require('./modules/dashboard/dashboard.routes');
 const settingsRoutes = require('./modules/settings/settings.routes');
 const securityRoutes = require('./modules/security/security.routes');
+const incrementRoutes = require('./modules/increment/increment.routes');
+const deductionRoutes = require('./modules/deduction/deduction.routes');
+const salaryStructureRoutes = require('./modules/salary-structure/salary-structure.routes');
 
 const app = express();
 
@@ -39,6 +42,9 @@ app.use('/api/reporting', reportingRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/security', securityRoutes);
+app.use('/api/increments', incrementRoutes);
+app.use('/api/deductions', deductionRoutes);
+app.use('/api/salary-structure', salaryStructureRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

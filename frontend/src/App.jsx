@@ -9,6 +9,9 @@ import ReportingPage from './features/reporting/pages/reportingPage';
 import LoanPage from './features/loan/pages/loanPage';
 import BonusPage from './features/bonus/pages/bonusPage';
 import AllowancePage from './features/allowance/pages/allowancePage';
+import IncrementPage from './features/increment/pages/incrementPage';
+import DeductionPage from './features/deduction/pages/deductionPage';
+import SalaryStructurePage from './features/salary-structure/pages/salaryStructurePage';
 import DashboardPage from './features/dashboard/pages/dashboardPage';
 import SettingsPage from './features/settings/pages/settingsPage';
 import SecurityPage from './features/security/pages/securityPage';
@@ -45,10 +48,11 @@ function App() {
           <Route path="leave" element={<Placeholder title="Leave Management" />} />
 
           <Route path="salary" element={<SalaryPage />} />
-          <Route path="increment" element={<Placeholder title="Increment" />} />
+          <Route path="salary-structure" element={<SalaryStructurePage />} />
+          <Route path="increment" element={<IncrementPage />} />
           <Route path="bonus" element={<BonusPage />} />
           <Route path="allowance" element={<AllowancePage />} />
-          <Route path="deduction" element={<Placeholder title="Deduction" />} />
+          <Route path="deduction" element={<DeductionPage />} />
           <Route path="loan-advance" element={<LoanPage />} />
 
           <Route path="reporting" element={<ReportingPage />} />
