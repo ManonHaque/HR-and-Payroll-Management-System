@@ -1,1 +1,5 @@
-// TODO: Team to implement API calls for security
+﻿import { apiClient } from '../../../lib/apiClient';
+
+export const fetchSecurityDashboard = () => {
+  return apiClient('/security');
+};

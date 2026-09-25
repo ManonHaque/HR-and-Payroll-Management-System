@@ -2,13 +2,13 @@ const { pool } = require('../../config/db');
 
 // ----- Loan Types -----
 async function getAllLoanTypes() {
-  const [rows] = await pool.query('SELECT * FROM LoanType ORDER BY name');
+  const [rows] = await pool.query('SELECT * FROM loantype ORDER BY name');
   return rows;
 }
 
 async function createLoanType({ name, interest_rate, max_amount, max_tenure }) {
   const [result] = await pool.query(
-    'INSERT INTO LoanType (name, interest_rate, max_amount, max_tenure) VALUES (?, ?, ?, ?)',
+    'INSERT INTO loantype (name, interest_rate, max_amount, max_tenure) VALUES (?, ?, ?, ?)',
     [name, interest_rate || 0, max_amount, max_tenure]
   );
   return { id: result.insertId, name, interest_rate, max_amount, max_tenure };
@@ -25,7 +25,7 @@ function calculateEmi(amount, interestRate, tenureMonths) {
 }
 
 async function previewEmi(loanTypeId, amount, tenureMonths) {
-  const [rows] = await pool.query('SELECT * FROM LoanType WHERE id = ?', [loanTypeId]);
+  const [rows] = await pool.query('SELECT * FROM loantype WHERE id = ?', [loanTypeId]);
   if (rows.length === 0) {
     const err = new Error('Loan type not found');
     err.status = 404;
@@ -59,7 +59,7 @@ async function applyForLoan({ employee_id, loan_type_id, requested_amount, tenur
   const preview = await previewEmi(loan_type_id, requested_amount, tenure_months);
 
   const [result] = await pool.query(
-    `INSERT INTO LoanRequest (employee_id, loan_type_id, requested_amount, emi_amount, tenure_months, status)
+    `INSERT INTO loanrequest (employee_id, loan_type_id, requested_amount, emi_amount, tenure_months, status)
      VALUES (?, ?, ?, ?, ?, 'Pending')`,
     [employee_id, loan_type_id, requested_amount, preview.emi_amount, tenure_months]
   );
@@ -70,9 +70,9 @@ async function applyForLoan({ employee_id, loan_type_id, requested_amount, tenur
 async function getAllLoanRequests({ employee_id, status } = {}) {
   let query = `
     SELECT lr.*, lt.name AS loan_type_name, e.first_name, e.last_name
-    FROM LoanRequest lr
-    JOIN LoanType lt ON lr.loan_type_id = lt.id
-    JOIN Employee e ON lr.employee_id = e.id
+    FROM loanrequest lr
+    JOIN loantype lt ON lr.loan_type_id = lt.id
+    JOIN employee e ON lr.employee_id = e.id
     WHERE 1 = 1
   `;
   const params = [];
@@ -87,9 +87,9 @@ async function getAllLoanRequests({ employee_id, status } = {}) {
 async function getLoanRequestById(id) {
   const [rows] = await pool.query(
     `SELECT lr.*, lt.name AS loan_type_name, e.first_name, e.last_name
-     FROM LoanRequest lr
-     JOIN LoanType lt ON lr.loan_type_id = lt.id
-     JOIN Employee e ON lr.employee_id = e.id
+    FROM loanrequest lr
+    JOIN loantype lt ON lr.loan_type_id = lt.id
+    JOIN employee e ON lr.employee_id = e.id
      WHERE lr.id = ?`,
     [id]
   );
@@ -107,7 +107,7 @@ async function updateLoanStatus(id, status, approvedBy) {
     err.status = 400;
     throw err;
   }
-  await pool.query('UPDATE LoanRequest SET status = ?, approved_by = ? WHERE id = ?', [status, approvedBy, id]);
+  await pool.query('UPDATE loanrequest SET status = ?, approved_by = ? WHERE id = ?', [status, approvedBy, id]);
   return getLoanRequestById(id);
 }
 
@@ -116,7 +116,7 @@ async function getLoanLedger(loanRequestId) {
   const loan = await getLoanRequestById(loanRequestId);
 
   const [repayments] = await pool.query(
-    'SELECT * FROM LoanRepayment WHERE loan_request_id = ? ORDER BY payment_date',
+    'SELECT * FROM loanrepayment WHERE loan_request_id = ? ORDER BY payment_date',
     [loanRequestId]
   );
 
@@ -139,7 +139,7 @@ async function getLoanLedger(loanRequestId) {
 // ----- Record a repayment (called by payroll run when EMI is deducted) -----
 async function recordRepayment({ loan_request_id, payroll_run_id, amount_paid, payment_date }) {
   const [result] = await pool.query(
-    `INSERT INTO LoanRepayment (loan_request_id, payroll_run_id, amount_paid, payment_date, status)
+    `INSERT INTO loanrepayment (loan_request_id, payroll_run_id, amount_paid, payment_date, status)
      VALUES (?, ?, ?, ?, 'Paid')`,
     [loan_request_id, payroll_run_id, amount_paid, payment_date]
   );

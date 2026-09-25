@@ -1,11 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import EmployeePage from './features/employee/pages/employeePage';
+import EmployeeProfilePage from './features/employee/pages/employeeProfilePage';
+import EmployeeConfigPage from './features/employee-config/pages/employee-configPage';
 import SalaryPage from './features/salary/pages/salaryPage';
 import ReportingPage from './features/reporting/pages/reportingPage';
 import LoanPage from './features/loan/pages/loanPage';
 import BonusPage from './features/bonus/pages/bonusPage';
 import AllowancePage from './features/allowance/pages/allowancePage';
+import DashboardPage from './features/dashboard/pages/dashboardPage';
+import SettingsPage from './features/settings/pages/settingsPage';
+import SecurityPage from './features/security/pages/securityPage';
 
 const Placeholder = ({ title }) => (
   <div className="h-full flex flex-col">
@@ -15,7 +21,7 @@ const Placeholder = ({ title }) => (
         <p className="text-sm text-gray-600 mt-1">Wednesday, September 10, 2026</p>
       </div>
     </div>
-    
+
     <div className="bg-white/40 border border-white/60 rounded-2xl flex-1 flex flex-col items-center justify-center text-center p-8 shadow-sm backdrop-blur-sm">
       <h3 className="text-xl font-semibold text-gray-800 mb-2">{title} Module</h3>
       <p className="text-gray-600 max-w-md">
@@ -30,23 +36,24 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Placeholder title="Dashboard" screenNum="1" />} />
-          <Route path="employee" element={<Placeholder title="Employee" screenNum="3" />} />
-          <Route path="employee-config" element={<Placeholder title="Employee Configuration" screenNum="4" />} />
-          <Route path="attendance" element={<Placeholder title="Attendance" screenNum="5" />} />
-          <Route path="overtime" element={<Placeholder title="Overtime Configuration" screenNum="6" />} />
-          <Route path="leave" element={<Placeholder title="Leave Management" screenNum="7" />} />
-          
+          <Route index element={<DashboardPage />} />
+          <Route path="employee" element={<EmployeePage />} />
+          <Route path="employee/:id" element={<EmployeeProfilePage />} />
+          <Route path="employee-config" element={<EmployeeConfigPage />} />
+          <Route path="attendance" element={<Placeholder title="Attendance" />} />
+          <Route path="overtime" element={<Placeholder title="Overtime Configuration" />} />
+          <Route path="leave" element={<Placeholder title="Leave Management" />} />
+
           <Route path="salary" element={<SalaryPage />} />
-          <Route path="increment" element={<Placeholder title="Increment" screenNum="9" />} />
+          <Route path="increment" element={<Placeholder title="Increment" />} />
           <Route path="bonus" element={<BonusPage />} />
           <Route path="allowance" element={<AllowancePage />} />
-          <Route path="deduction" element={<Placeholder title="Deduction" screenNum="12" />} />
+          <Route path="deduction" element={<Placeholder title="Deduction" />} />
           <Route path="loan-advance" element={<LoanPage />} />
-          
+
           <Route path="reporting" element={<ReportingPage />} />
-          <Route path="security" element={<Placeholder title="Security" screenNum="2" />} />
-          <Route path="settings" element={<Placeholder title="Setting" screenNum="15" />} />
+          <Route path="security" element={<SecurityPage />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>
     </Router>
