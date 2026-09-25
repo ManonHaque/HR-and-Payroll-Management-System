@@ -93,6 +93,24 @@ export default function SalaryPage() {
     }
   };
 
+  const handleUnlockRun = async () => {
+    setIsUpdating(true);
+    setErrorMessage(null);
+    try {
+      const result = await updatePayrollStatus('Draft', true, 'Admin override: unlocked for revision');
+      if (result && result.run) {
+        setPayrollRun(result.run);
+        setSuccessMessage('Payroll run unlocked to Draft (Audited entry logged per SAL-07).');
+        setTimeout(() => setSuccessMessage(null), 4000);
+      }
+    } catch (err) {
+      setErrorMessage(err.message || 'Unlock failed.');
+      setTimeout(() => setErrorMessage(null), 4000);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   const handleEmployeeChange = async (e) => {
     const empId = parseInt(e.target.value, 10);
     try {
@@ -229,6 +247,18 @@ export default function SalaryPage() {
                 Locked
               </button>
             </div>
+
+            {isLocked && (
+              <button
+                type="button"
+                onClick={handleUnlockRun}
+                disabled={isUpdating}
+                className="mt-3 w-full py-2 px-3 text-xs font-semibold rounded-xl border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
+              >
+                <Lock className="w-3.5 h-3.5 text-amber-700" />
+                <span>Unlock Run (Admin Audit Override)</span>
+              </button>
+            )}
           </div>
         </div>
 

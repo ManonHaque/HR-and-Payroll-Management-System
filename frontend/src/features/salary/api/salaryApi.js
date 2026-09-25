@@ -128,12 +128,12 @@ export const fetchEmployeeCalculation = async (employeeId) => {
   return found || EMPLOYEE_DETAILS[0];
 };
 
-export const updatePayrollStatus = async (status) => {
+export const updatePayrollStatus = async (status, adminOverride = false, reason = '') => {
   try {
     const response = await fetch(`${API_BASE}/status`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status })
+      body: JSON.stringify({ status, adminOverride, reason })
     });
     const result = await response.json();
     if (!response.ok) {
